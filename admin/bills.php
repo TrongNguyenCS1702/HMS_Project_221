@@ -141,6 +141,7 @@ if (isset($_POST['submit'])) {
                                                     <th scope='col'>#</th>
                                                     <th scope='col'>Title</th>
                                                     <th scope='col'>Month/Year</th>
+                                                    <th scope='col'>Room</th>
                                                     <th scope='col'>Pay By</th>
                                                     <th scope='col'>Status</th>
                                                     <th scope='col'>Created At</th>
@@ -151,9 +152,10 @@ if (isset($_POST['submit'])) {
 
                                             <tbody>
                                                 <?php
-                                                $query = "select *, b.id as b_id, b.updated_at as b_updated_at, b.status as b_status
-                                                        from (((bills as b
-                                                        left outer join admin as a on a.id = b.manager_id)
+                                                $query = "select *, b.id as b_id, b.created_at as b_created_at, b.updated_at as b_updated_at, b.status as b_status
+                                                        from ((((bills as b
+                                                        left outer join rooms as r on r.id = b.room_id)
+                                                        left outer join courts as c on c.id = r.court_id)
                                                         left outer join students as s on s.id = b.student_id)
                                                         left outer join (select id as s_id, firstname, lastname from users) as u on u.s_id = s.user_id)";
 
@@ -165,9 +167,10 @@ if (isset($_POST['submit'])) {
                                                     <td>" . $count . "</td>
                                                     <td>" . $row['title'] . "</td>
                                                     <td>" . $row['time'] . "</td>
+                                                    <td>" . $row['name'] . "-" . $row['room_number'] . "</td>
                                                     <td>" . $row['lastname'] . " " . $row['firstname'] . "</td>
                                                     <td>" . $row['b_status'] . "</td>
-                                                    <td>" . $row['created_at'] . "</td>
+                                                    <td>" . $row['b_created_at'] . "</td>
                                                     <td>" . $row['b_updated_at'] . "</td>
                                                     <td>
                                                         <input value='$row[b_id]' style='display:none;'>

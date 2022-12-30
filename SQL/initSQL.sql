@@ -64,6 +64,7 @@ CREATE TABLE `notifications` (
 CREATE TABLE `bills` (
 `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 `manager_id` int NOT NULL,
+`room_id` int NOT NULL,
 `student_id` int,
 `title` varchar(300) COLLATE utf8mb4_vietnamese_ci NOT NULL,
 `time` varchar(5000) COLLATE utf8mb4_vietnamese_ci NOT NULL,
@@ -138,10 +139,11 @@ ADD FOREIGN KEY (`manager_id`) REFERENCES `admin`(`id`) ON DELETE CASCADE ON UPD
 -- --------------------------------------------------------
 -- --------------------------------------------------------
 --
--- Add Foreign Key for table `notifications`
+-- Add Foreign Key for table `bills`
 --
 ALTER TABLE `bills`
 ADD FOREIGN KEY (`manager_id`) REFERENCES `admin`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD FOREIGN KEY (`room_id`) REFERENCES `rooms`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD FOREIGN KEY (`student_id`) REFERENCES `students`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 -- --------------------------------------------------------
 

@@ -128,7 +128,6 @@ include("../connect/connect.php");
                                                 class="table table table-striped table-hover table-bordered no-wrap">
                                                 <thead class="thead-dark">
                                                     <tr>
-                                                        <th scope='col'>Court</th>
                                                         <th scope='col'>Room</th>
                                                         <th scope='col'>SSN</th>
                                                         <th scope='col'>Name</th>
@@ -156,8 +155,7 @@ include("../connect/connect.php");
                                                     while ($row = mysqli_fetch_assoc($result)) {
                                                         echo "
                                                     <tr>
-                                                        <td>" . $row['name'] . "</td>
-                                                        <td>" . $row['room_number'] . "</td>
+                                                        <td>" . $row['name'] . "-" . $row['room_number'] . "</td>
                                                         <td>" . $row['ssn'] . "</td>
                                                         <td>" . $row['lastname'] . " " . $row['firstname'] . "</td>
                                                         <td>" . $row['phone'] . "</td>

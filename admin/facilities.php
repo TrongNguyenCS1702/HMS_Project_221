@@ -114,7 +114,6 @@ include("../connect/connect.php");
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th scope='col'>#</th>
-                                                    <th scope='col'>Court</th>
                                                     <th scope='col'>Room</th>
                                                     <th scope='col'>Created By</th>
                                                     <th scope='col'>Description</th>
@@ -138,8 +137,7 @@ include("../connect/connect.php");
                                                     echo "
                                                     <tr>
                                                         <td>" . $count . "</td>
-                                                        <td>" . $row['name'] . " " . $row['firstname'] . "</td>
-                                                        <td>" . $row['room_number'] . "</td>
+                                                        <td>" . $row['name'] . "-" . $row['room_number'] . "</td>
                                                         <td>" . $row['lastname'] . " " . $row['firstname'] . "</td>
                                                         <td>" . $row['description'] . "</td>
                                                         <td>" . $row['created_at'] . "</td>
@@ -192,13 +190,6 @@ include("../connect/connect.php");
                 </div>
                 <div class="modal-body">
                     <div>
-                        <div class="form__info form-floating">
-                            <input disabled type="text" class="form-control" placeholder="Court" name="court">
-                            <div class="validate-msg">
-
-                            </div>
-                            <label for="court" class="form__label">Court</label>
-                        </div>
 
                         <div class="form__info form-floating">
                             <input disabled type="text" class="form-control" placeholder="Room" name="room">

@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
 																<strong>Bạn phải điền vào tất cả các ô!</strong>
 															</div>';
     } else {
-        $mql = "insert into bills (id, manager_id, student_id , title, time, bill, status) values (NULL, $_SESSION[admin_id], NULL, '$_POST[title]','$_POST[time]',$_POST[bill], 'Chưa thanh toán')";
+        $mql = "insert into bills (id, manager_id, student_id, room_id, title, time, bill, status) values (NULL, $_SESSION[admin_id], NULL, $_POST[room], '$_POST[title]','$_POST[time]',$_POST[bill], 'Chưa thanh toán')";
         mysqli_query($ktx, $mql);
 
         $success = '<div class="alert alert-success alert-dismissible fade show">
@@ -136,40 +136,93 @@ if (isset($_POST['submit'])) {
 
                                         <div class="card-body">
                                             <form action="" method="POST" class="add-form">
-                                                <div class="form__info form-floating">
-                                                    <input type="text" class="form-control" placeholder="Title"
-                                                        name="title" onchange="validateTitle(this)">
-                                                    <div class="validate-msg">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Court</label><br>
+                                                            <select
+                                                                style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
+                                                                name="court" aria-label="select example">
+                                                                <option value="0" type="0">Chọn Tòa</option>
+                                                                <?php
+                                                                $query = "select * from courts";
+                                                                $result = mysqli_query($ktx, $query);
+                                                                while ($court = mysqli_fetch_array($result)) {
+                                                                    echo "<option value='" . $court['id'] . "' type='" . $court['type'] . "'>" . $court['name'] . "</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
 
+                                                        </div>
                                                     </div>
-                                                    <label for="title" class="form__label">Title</label>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Room</label><br>
+                                                            <select
+                                                                style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
+                                                                name="room" aria-label="select example">
+                                                                <option value="0" court="0">Chọn Phòng</option>
+
+                                                                <?php
+                                                                $query = "select *, count(s_id) as slot_count
+                                                                                from (rooms
+                                                                                left outer join (select id as s_id, room_id from students) as s on rooms.id = s.room_id)
+                                                                                GROUP by id;";
+                                                                $result = mysqli_query($ktx, $query);
+                                                                while ($room = mysqli_fetch_array($result)) {
+                                                                    echo "<option value='" . $room['id'] . "' court='" . $room['court_id'] . "'>" . $room['room_number'] . "</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" placeholder="Title"
+                                                                name="title" onchange="validateTitle(this)">
+                                                            <div class="validate-msg">
 
-                                                <div class="form__info form-floating">
-                                                    <input type="text" class="form-control" placeholder="Month/Year"
-                                                        name="time" onchange="validateTitle(this)">
-                                                    <div class="validate-msg">
-
+                                                            </div>
+                                                            <label for="title" class="form__label">Title</label>
+                                                        </div>
                                                     </div>
-                                                    <label for="time" class="form__label">Month/Year</label>
-                                                </div>
 
-                                                <div class="form__info form-floating">
-                                                    <input type="text" class="form-control" placeholder="Bill"
-                                                        name="bill" onchange="validateTitle(this)">
-                                                    <div class="validate-msg">
+                                                    <div class="col-md-12">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Month/Year" name="time"
+                                                                onchange="validateTitle(this)">
+                                                            <div class="validate-msg">
 
+                                                            </div>
+                                                            <label for="time" class="form__label">Month/Year</label>
+                                                        </div>
                                                     </div>
-                                                    <label for="bill" class="form__label">Bill</label>
-                                                </div>
 
-                                                <div class="form__info form-floating">
-                                                    <input type="text" class="form-control" placeholder="Note"
-                                                        name="note" onchange="validateTitle(this)">
-                                                    <div class="validate-msg">
+                                                    <div class="col-md-12">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" placeholder="Bill"
+                                                                name="bill" onchange="validateTitle(this)">
+                                                            <div class="validate-msg">
 
+                                                            </div>
+                                                            <label for="bill" class="form__label">Bill</label>
+                                                        </div>
                                                     </div>
-                                                    <label for="note" class="form__label">Note</label>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" placeholder="Note"
+                                                                name="note" onchange="validateTitle(this)">
+                                                            <div class="validate-msg">
+
+                                                            </div>
+                                                            <label for="note" class="form__label">Note</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <input type="submit" id="submit"
@@ -208,6 +261,23 @@ if (isset($_POST['submit'])) {
     <script src="../js/jquery-3.6.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+    <script>
+    changeCourt()
+
+    $("select[name='court']")
+        .change(changeCourt)
+
+    function changeCourt() {
+        $(`select[name='room'] option`).hide();
+        $(`select[name='room'] option:selected`).removeAttr("selected");
+
+        const court = $("select[name='court'] option:selected").val();
+        const rooms = $(`select[name='room'] option[court='${court}']`);
+
+        rooms.show();
+        rooms.first().attr("selected", "selected");
+    }
     </script>
     <script src="../js/bills.js"></script>
 

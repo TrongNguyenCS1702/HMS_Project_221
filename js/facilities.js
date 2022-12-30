@@ -5,8 +5,7 @@ $(".detail-btn").click(function(){
         url: "../admin/get_facilities.php?id=" + id,
         dataType: "json",
         success: function(resFaci){
-            $("input[name='court']").val(resFaci.court);
-            $("input[name='room']").val(resFaci.room);
+            $("input[name='room']").val(resFaci.court + "-" +resFaci.room);
             $("input[name='created_by']").val(resFaci.created_by);
             $("textarea[name='description']").text(resFaci.description);
             $("input[name='status']").val(resFaci.status);
