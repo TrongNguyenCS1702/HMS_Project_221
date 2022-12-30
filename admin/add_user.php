@@ -68,7 +68,8 @@ if (isset($_POST['submit'])) {
                     empty($_POST['court']) ||
                     empty($_POST['year']) ||
                     empty($_POST['university']) ||
-                    empty($_POST['student_id'])
+                    empty($_POST['student_id']) ||
+                    empty($_POST['status'])
                 ) {
 
                     $error = '<div class="alert alert-danger alert-dismissible fade show">
@@ -124,7 +125,7 @@ if (isset($_POST['submit'])) {
                                     '$_POST[year]',
                                     '$_POST[university]',
                                     '$_POST[student_id]',
-                                    'Gia hạn')";
+                                    '$_POST[status]')";
                     mysqli_query($ktx, $mql);
 
                     $mql = "select (slot-count(s.id)) as count
@@ -266,6 +267,15 @@ if (isset($_POST['submit'])) {
                                 <i class="ti-angle-right collapse-icon"></i>
                             </a>
                         </li>
+                        <li>
+                            <a href="./bills.php" class="nav-link">
+                                <i class="nav-link-icon ti-notepad"></i>
+                                <span>
+                                    Bills
+                                </span>
+                                <i class="ti-angle-right collapse-icon"></i>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -323,7 +333,7 @@ if (isset($_POST['submit'])) {
                                                         <div class="col-md-6">
                                                             <div class="form-group has-danger">
                                                                 <label class="control-label">Last Name</label>
-                                                                <input type="text" name="firstname"
+                                                                <input type="text" name="lastname"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="jon">
                                                             </div>
@@ -332,7 +342,7 @@ if (isset($_POST['submit'])) {
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">First Name</label>
-                                                                <input type="text" name="lastname" class="form-control"
+                                                                <input type="text" name="firstname" class="form-control"
                                                                     placeholder="doe" value="">
                                                             </div>
                                                         </div>
@@ -472,7 +482,7 @@ if (isset($_POST['submit'])) {
                                                         </div>
 
                                                         <div class="row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label">Year</label>
                                                                     <input type="text" name="year"
@@ -481,7 +491,7 @@ if (isset($_POST['submit'])) {
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label">University</label>
                                                                     <input type="text" name="university"
@@ -490,12 +500,21 @@ if (isset($_POST['submit'])) {
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label">Student ID</label>
                                                                     <input type="text" name="student_id"
                                                                         class="form-control form-control-danger"
                                                                         value="" placeholder="Student ID">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Status</label>
+                                                                    <input type="text" name="status"
+                                                                        class="form-control form-control-danger"
+                                                                        value="" placeholder="Status">
 
                                                                 </div>
                                                             </div>

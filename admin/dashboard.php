@@ -76,6 +76,15 @@ include("../connect/connect.php");
                                 <i class="ti-angle-right collapse-icon"></i>
                             </a>
                         </li>
+                        <li>
+                            <a href="./bills.php" class="nav-link">
+                                <i class="nav-link-icon ti-notepad"></i>
+                                <span>
+                                    Bills
+                                </span>
+                                <i class="ti-angle-right collapse-icon"></i>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

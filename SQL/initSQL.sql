@@ -59,6 +59,23 @@ CREATE TABLE `notifications` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bills`
+--
+CREATE TABLE `bills` (
+`id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`manager_id` int NOT NULL,
+`student_id` int,
+`title` varchar(300) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+`time` varchar(5000) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+`bill` int(12) NOT NULL,
+`note` varchar(5000) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+`status` varchar(5000) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+`created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+`updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courts`
 --
 CREATE TABLE `courts` (
@@ -119,6 +136,15 @@ ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE
 ALTER TABLE `notifications`
 ADD FOREIGN KEY (`manager_id`) REFERENCES `admin`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 -- --------------------------------------------------------
+-- --------------------------------------------------------
+--
+-- Add Foreign Key for table `notifications`
+--
+ALTER TABLE `bills`
+ADD FOREIGN KEY (`manager_id`) REFERENCES `admin`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD FOREIGN KEY (`student_id`) REFERENCES `students`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- --------------------------------------------------------
+
 
 --
 -- Add Foreign Key for table `rooms`

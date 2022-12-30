@@ -7,8 +7,10 @@ include("../connect/connect.php");
 
 if (isset($_POST['submit'])) {
     if (
+        empty($_POST['bill_id']) ||
         empty($_POST['title']) ||
-        empty($_POST['description'])
+        empty($_POST['time']) ||
+        empty($_POST['bill'])
     ) {
 
         $error = '<div class="alert alert-danger alert-dismissible fade show">
@@ -16,12 +18,12 @@ if (isset($_POST['submit'])) {
 																<strong>Bạn phải điền vào tất cả các ô!</strong>
 															</div>';
     } else {
-        $mql = "update notifications set title='$_POST[title]', description='$_POST[description]' where id =$_POST[noti_id]";
+        $mql = "update bills set title='$_POST[title]',time='$_POST[time]',bill=$_POST[bill] where id =$_POST[bill_id]";
         mysqli_query($ktx, $mql);
 
         $success = '<div class="alert alert-success alert-dismissible fade show">
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                                            <strong>Thông báo được cập nhật thành công</strong></div>';
+																<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+																<strong>Hóa đơn được cập nhật thành công</strong></div>';
     }
 }
 ?>
@@ -79,7 +81,7 @@ if (isset($_POST['submit'])) {
                                 <i class="ti-angle-right collapse-icon"></i>
                             </a>
                         </li>
-                        <li class=" tag--active">
+                        <li>
                             <a href="./notifications.php" class="nav-link">
                                 <i class="nav-link-icon ti-bell"></i>
                                 <span>
@@ -97,7 +99,7 @@ if (isset($_POST['submit'])) {
                                 <i class="ti-angle-right collapse-icon"></i>
                             </a>
                         </li>
-                        <li>
+                        <li class=" tag--active">
                             <a href="./bills.php" class="nav-link">
                                 <i class="nav-link-icon ti-notepad"></i>
                                 <span>
@@ -114,9 +116,9 @@ if (isset($_POST['submit'])) {
             <!-- Page Wrapper -->
             <div class="page-wrapper">
                 <!-- Notification -->
-                <div class="notification">
+                <div class="bill">
                     <div class="row page-title">
-                        <h2 class="notification-title text-primary col-12">Notification</h2>
+                        <h2 class="bill-title text-primary col-12">Bill</h2>
                     </div>
 
                     <div class="row">
@@ -124,7 +126,7 @@ if (isset($_POST['submit'])) {
                             <div class="card">
                                 <div class="card-body">
                                     <h2 class="card-title">
-                                        Notification Data
+                                        Bill Data
                                     </h2>
 
                                     <?php
@@ -132,13 +134,15 @@ if (isset($_POST['submit'])) {
                                     echo $success;
                                     ?>
                                     <div class="talbe-responsive">
-                                        <table id="notification__table"
+                                        <table id="bill__table"
                                             class="table table-striped table-hover table-bordered no-wrap">
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th scope='col'>#</th>
                                                     <th scope='col'>Title</th>
-                                                    <th scope='col'>Created By</th>
+                                                    <th scope='col'>Month/Year</th>
+                                                    <th scope='col'>Pay By</th>
+                                                    <th scope='col'>Status</th>
                                                     <th scope='col'>Created At</th>
                                                     <th scope='col'>Updated At</th>
                                                     <th scope='col'>Action</th>
@@ -147,10 +151,11 @@ if (isset($_POST['submit'])) {
 
                                             <tbody>
                                                 <?php
-                                                $query = "select *
-                                                          from ((notifications as n
-                                                          left outer join admin as a on a.id = n.manager_id)
-                                                          left outer join (select id as m_id, username from users) as u on u.m_id = a.user_id)";
+                                                $query = "select *, b.id as b_id, b.updated_at as b_updated_at, b.status as b_status
+                                                        from (((bills as b
+                                                        left outer join admin as a on a.id = b.manager_id)
+                                                        left outer join students as s on s.id = b.student_id)
+                                                        left outer join (select id as s_id, firstname, lastname from users) as u on u.s_id = s.user_id)";
 
                                                 $result = mysqli_query($ktx, $query);
                                                 $count = 1;
@@ -159,11 +164,13 @@ if (isset($_POST['submit'])) {
                                                 <tr>
                                                     <td>" . $count . "</td>
                                                     <td>" . $row['title'] . "</td>
-                                                    <td>" . $row['username'] . "</td>
+                                                    <td>" . $row['time'] . "</td>
+                                                    <td>" . $row['lastname'] . " " . $row['firstname'] . "</td>
+                                                    <td>" . $row['b_status'] . "</td>
                                                     <td>" . $row['created_at'] . "</td>
-                                                    <td>" . $row['updated_at'] . "</td>
+                                                    <td>" . $row['b_updated_at'] . "</td>
                                                     <td>
-                                                        <input value='$row[id]' style='display:none;'>
+                                                        <input value='$row[b_id]' style='display:none;'>
                                                         <button class='detail-btn btn btn-primary' data-bs-toggle='modal'
                                                             data-bs-target='#detail'>
                                                             <i class='ti-info-alt'></i>
@@ -172,7 +179,7 @@ if (isset($_POST['submit'])) {
                                                             data-bs-target='#edit'>
                                                             <i class='ti-pencil'></i>
                                                         </button>
-                                                        <a class='delete-btn btn btn-danger' href='./delete_notification.php?id=" . $row['id'] . "'>
+                                                        <a class='delete-btn btn btn-danger' href='./delete_bill.php?id=" . $row['b_id'] . "'>
                                                             <i class='ti-close'></i>
                                                         </a>
                                                     </td>
@@ -188,8 +195,8 @@ if (isset($_POST['submit'])) {
                                     </div>
 
                                     <div class="row">
-                                        <a class="action-btn action-btn--add" href="./add_notification.php
-                                    ">Add Notification</a>
+                                        <a class="action-btn action-btn--add" href="./add_bill.php
+                                    ">Add Bill</a>
                                     </div>
                                 </div>
                             </div>
@@ -230,12 +237,30 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="form__info form-floating">
-                            <textarea disabled class="form-control" name="description" placeholder="Description"
-                                style="height: 500px"></textarea>
+                            <input disabled type="text" class="form-control" placeholder="Month/Year" name="time"
+                                onchange="validateTitle(this)">
                             <div class="validate-msg">
 
                             </div>
-                            <label for="description" class="form__label">Description</label>
+                            <label for="time" class="form__label">Month/Year</label>
+                        </div>
+
+                        <div class="form__info form-floating">
+                            <input disabled type="text" class="form-control" placeholder="Bill" name="bill"
+                                onchange="validateTitle(this)">
+                            <div class="validate-msg">
+
+                            </div>
+                            <label for="bill" class="form__label">Bill</label>
+                        </div>
+
+                        <div class="form__info form-floating">
+                            <input disabled type="text" class="form-control" placeholder="" name="note"
+                                onchange="validateTitle(this)">
+                            <div class="validate-msg">
+
+                            </div>
+                            <label for="note" class="form__label">Note</label>
                         </div>
                     </div>
                 </div>
@@ -256,7 +281,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="modal-body">
                     <form class="edit-form" method="post" action=''>
-                        <input type="text" class="form-control" name="noti_id" style="display: none;" value="">
+                        <input type="text" class="form-control" name="bill_id" style="display: none;" value="">
                         <div class="form__info form-floating">
                             <input type="text" class="form-control" placeholder="Title" name="title"
                                 onchange="validateTitle(this)">
@@ -267,13 +292,33 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="form__info form-floating">
-                            <textarea class="form-control" name="description" placeholder="Description"
-                                style="height: 500px"></textarea>
+                            <input type="text" class="form-control" placeholder="Month/Year" name="time"
+                                onchange="validateTitle(this)">
                             <div class="validate-msg">
 
                             </div>
-                            <label for="description" class="form__label">Description</label>
+                            <label for="time" class="form__label">Month/Year</label>
                         </div>
+
+                        <div class="form__info form-floating">
+                            <input type="text" class="form-control" placeholder="Bill" name="bill"
+                                onchange="validateTitle(this)">
+                            <div class="validate-msg">
+
+                            </div>
+                            <label for="bill" class="form__label">Bill</label>
+                        </div>
+
+                        <div class="form__info form-floating">
+                            <input type="text" class="form-control" placeholder="" name="note"
+                                onchange="validateTitle(this)">
+                            <div class="validate-msg">
+
+                            </div>
+                            <label for="note" class="form__label">Note</label>
+                        </div>
+
+
                         <input type="submit" name="submit"
                             class="form-control action-btn action-btn--add btn btn-success" value="Update">
                     </form>
@@ -297,10 +342,10 @@ if (isset($_POST['submit'])) {
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
     $(document).ready(function() {
-        $("#notification__table").DataTable();
+        $("#bill__table").DataTable();
     })
     </script>
-    <script src="../js/notification.js"></script>
+    <script src="../js/bills.js"></script>
 
 </body>
 

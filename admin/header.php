@@ -1,3 +1,9 @@
+<?php
+if (empty($_SESSION["admin_id"])) {
+    header('location:index.php');
+}
+?>
+
 <!-- Header -->
 <div class="header top-fixed">
     <nav class="navbar header-navbar">
@@ -29,9 +35,9 @@
                     </div>
 
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="./info.php">Thông tin cá nhân</a></li>
                         <hr class="dropdown-divider">
-                        <li><a class="dropdown-item" href="#">
+                        <li><a class="dropdown-item" href="./logout.php">
                                 Logout
                                 <i class="logout-icon ti-shift-right"></i>
                             </a>

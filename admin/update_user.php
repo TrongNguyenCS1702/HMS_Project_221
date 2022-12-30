@@ -67,7 +67,8 @@ if (isset($_POST['submit'])) {
                 empty($_POST['court']) ||
                 empty($_POST['year']) ||
                 empty($_POST['university']) ||
-                empty($_POST['student_id'])
+                empty($_POST['student_id']) ||
+                empty($_POST['status'])
             ) {
 
                 $error = '<div class="alert alert-danger alert-dismissible fade show">
@@ -84,7 +85,7 @@ if (isset($_POST['submit'])) {
                                                 year='$_POST[year]',
                                                 university='$_POST[university]',
                                                 student_id='$_POST[student_id]',
-                                                status='Gia hạn' where user_id='$_GET[user]' ";
+                                                status='$_POST[status]' where user_id='$_GET[user]' ";
                     mysqli_query($ktx, $mql);
                 } else {
                     $mql = "delete from admin where user_id='$_GET[user]' ";
@@ -104,7 +105,7 @@ if (isset($_POST['submit'])) {
                                     '$_POST[year]',
                                     '$_POST[university]',
                                     '$_POST[student_id]',
-                                    'Gia hạn')";
+                                    '$_POST[status]')";
                     mysqli_query($ktx, $mql);
                 }
 
@@ -275,6 +276,15 @@ if (isset($_POST['submit'])) {
                                 <i class="ti-angle-right collapse-icon"></i>
                             </a>
                         </li>
+                        <li>
+                            <a href="./bills.php" class="nav-link">
+                                <i class="nav-link-icon ti-notepad"></i>
+                                <span>
+                                    Bills
+                                </span>
+                                <i class="ti-angle-right collapse-icon"></i>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -340,9 +350,9 @@ if (isset($_POST['submit'])) {
                                                         <div class="col-md-6">
                                                             <div class="form-group has-danger">
                                                                 <label class="control-label">Last Name</label>
-                                                                <input type="text" name="firstname"
+                                                                <input type="text" name="lastname"
                                                                     class="form-control form-control-danger"
-                                                                    value="<?php echo $newrow['firstname']; ?>"
+                                                                    value="<?php echo $newrow['lastname']; ?>"
                                                                     placeholder="jon">
                                                             </div>
                                                         </div>
@@ -350,15 +360,17 @@ if (isset($_POST['submit'])) {
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">First Name</label>
-                                                                <input type="text" name="lastname" class="form-control"
+                                                                <input type="text" name="firstname" class="form-control"
                                                                     placeholder="doe"
-                                                                    value="<?php echo $newrow['lastname']; ?>">
+                                                                    value="<?php echo $newrow['firstname']; ?>">
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <!--/row-->
-
+                                                    <?php
+                                                    $selected[$newrow['gender']] = "selected";
+                                                    ?>
                                                     <div class="row p-t-20">
                                                         <div class="col-md-6">
                                                             <div class="form-group has-danger">
@@ -366,8 +378,8 @@ if (isset($_POST['submit'])) {
                                                                 <select
                                                                     style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
                                                                     name="gender" aria-label="select example">
-                                                                    <option>Nam</option>
-                                                                    <option>Nữ</option>
+                                                                    <option <?php echo $selected['Nam']; ?>>Nam</option>
+                                                                    <option <?php echo $selected['Nữ']; ?>>Nữ</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -461,11 +473,11 @@ if (isset($_POST['submit'])) {
                                                     <?php
 
                                                     if ($newrow['role'] == "student") {
-                                                        $query = "select *
+                                                        $query = "select *, students.status as s_status
                                                                   from (((students
-                                                                  inner join (select id as u_id from users) as u on students.user_id = u.u_id)
-                                                                  inner join (select id as r_id, room_number, court_id from rooms) as r on students.room_id = r.r_id)
-                                                                  inner join (select id as c_id, name as court from courts) as c on r.court_id = c.c_id)
+                                                                  left outer join (select id as u_id from users) as u on students.user_id = u.u_id)
+                                                                  left outer join (select id as r_id, room_number, court_id from rooms) as r on students.room_id = r.r_id)
+                                                                  left outer join (select id as c_id, name as court from courts) as c on r.court_id = c.c_id)
                                                                   where u_id='$_GET[user]'";
                                                         $result = mysqli_query($ktx, $query);
                                                         $student = mysqli_fetch_array($result);
@@ -525,7 +537,7 @@ if (isset($_POST['submit'])) {
                                                         </div>
 
                                                         <div class="row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label">Year</label>
                                                                     <input type="text" name="year"
@@ -535,7 +547,7 @@ if (isset($_POST['submit'])) {
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label">University</label>
                                                                     <input type="text" name="university"
@@ -545,13 +557,23 @@ if (isset($_POST['submit'])) {
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label">Student ID</label>
                                                                     <input type="text" name="student_id"
                                                                         class="form-control form-control-danger"
                                                                         value="<?php echo $student['student_id']; ?>"
                                                                         placeholder="Student ID">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Status</label>
+                                                                    <input type="text" name="status"
+                                                                        class="form-control form-control-danger"
+                                                                        value="<?php echo $student['s_status']; ?>"
+                                                                        placeholder="Status">
 
                                                                 </div>
                                                             </div>
