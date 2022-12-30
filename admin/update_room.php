@@ -278,7 +278,6 @@ if (isset($_POST['submit'])) {
                                                                 class="table table table-striped table-hover table-bordered no-wrap">
                                                                 <thead class="thead-dark">
                                                                     <tr>
-                                                                        <th scope='col'>Court</th>
                                                                         <th scope='col'>Room</th>
                                                                         <th scope='col'>SSN</th>
                                                                         <th scope='col'>Name</th>
@@ -310,8 +309,7 @@ if (isset($_POST['submit'])) {
 
                                                                         echo "
                                                                                 <tr>
-                                                                                    <td>" . $row['name'] . "</td>
-                                                                                    <td>" . $row['room_number'] . "</td>
+                                                                                    <td>" . $row['name'] . "-" . $row['room_number'] . "</td>
                                                                                     <td>" . $row['ssn'] . "</td>
                                                                                     <td>" . $row['lastname'] . " " . $row['firstname'] . "</td>
                                                                                     <td>" . $row['phone'] . "</td>
@@ -321,7 +319,7 @@ if (isset($_POST['submit'])) {
                                                                                     <td>
                                                                                         <input value='$row[id]' style='display:none;'>
                                                                                         <button class='detail-btn btn btn-primary' data-bs-toggle='modal'
-                                                                                            data-bs-target='#detail'>
+                                                                                            data-bs-target='#detail' type='button'>
                                                                                             <i class='ti-info-alt'></i>
                                                                                         </button>
                                                                                         <a class='edit-btn btn btn-warning' href='./update_user.php?user=" . $row['id'] . "'>
@@ -492,14 +490,6 @@ if (isset($_POST['submit'])) {
                             </div>
 
                             <div class="form__info form-floating">
-                                <input disabled type="text" class="form-control" placeholder="Court" name="court">
-                                <div class="validate-msg">
-
-                                </div>
-                                <label for="court" class="form__label">Court</label>
-                            </div>
-
-                            <div class="form__info form-floating">
                                 <input disabled type="text" class="form-control" placeholder="Room" name="room">
                                 <div class="validate-msg">
 
@@ -513,6 +503,15 @@ if (isset($_POST['submit'])) {
 
                                 </div>
                                 <label for="status" class="form__label">Status</label>
+                            </div>
+
+                            <div class="form__info form-floating">
+                                <input disabled type="text" class="form-control" placeholder="Register At"
+                                    name="created_at">
+                                <div class="validate-msg">
+
+                                </div>
+                                <label for="created_at" class="form__label">Register At</label>
                             </div>
                         </div>
                     </div>
