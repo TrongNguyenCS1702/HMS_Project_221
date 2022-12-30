@@ -3,7 +3,7 @@ include("../connect/connect.php");
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-$query = "select *, s.updated_at as s_updated_at, s.status as s_status
+$query = "select *, u.created_at as s_created_at, s.updated_at as s_updated_at, s.status as s_status
           from (((students as s
           left outer join users as u on s.user_id = u.id)
           left outer join rooms as r on s.room_id = r.id)
@@ -32,6 +32,7 @@ echo json_encode(
         'year' => $student['year'],
         'university' => $student['university'],
         's_status' => $student['s_status'],
+        's_created_at' => $student['s_created_at'],
         's_updated_at' => $student['s_updated_at'],
         'student_id' => $student['student_id']
     )

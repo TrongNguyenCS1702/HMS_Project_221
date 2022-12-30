@@ -16,12 +16,12 @@ $(".detail-btn").click(function(){
             $("input[name='address']").val(resStudent.address);
             $("input[name='username']").val(resStudent.username);
             $("input[name='password']").val(resStudent.password);
-            $("input[name='room']").val(resStudent.room_number);
-            $("input[name='court']").val(resStudent.name);
+            $("input[name='room']").val(resStudent.name + "-" + resStudent.room_number);
             $("input[name='year']").val(resStudent.year);
             $("input[name='university']").val(resStudent.university);
             $("input[name='status']").val(resStudent.s_status + ": " + resStudent.s_updated_at);
             $("input[name='student_id']").val(resStudent.student_id);
+            $("input[name='created_at']").val(resStudent.s_created_at);
 
         }
     })

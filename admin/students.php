@@ -374,14 +374,6 @@ include("../connect/connect.php");
                             </div>
 
                             <div class="form__info form-floating">
-                                <input disabled type="text" class="form-control" placeholder="Court" name="court">
-                                <div class="validate-msg">
-
-                                </div>
-                                <label for="court" class="form__label">Court</label>
-                            </div>
-
-                            <div class="form__info form-floating">
                                 <input disabled type="text" class="form-control" placeholder="Room" name="room">
                                 <div class="validate-msg">
 
@@ -395,6 +387,15 @@ include("../connect/connect.php");
 
                                 </div>
                                 <label for="status" class="form__label">Status</label>
+                            </div>
+
+                            <div class="form__info form-floating">
+                                <input disabled type="text" class="form-control" placeholder="Register At"
+                                    name="created_at">
+                                <div class="validate-msg">
+
+                                </div>
+                                <label for="created_at" class="form__label">Register At</label>
                             </div>
                         </div>
                     </div>
