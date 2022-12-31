@@ -442,11 +442,7 @@ if (isset($_POST['submit'])) {
                                                                         $query = "select * from courts";
                                                                         $result = mysqli_query($ktx, $query);
                                                                         while ($court = mysqli_fetch_array($result)) {
-                                                                            if ($student['court'] == $court['name'])
-                                                                                $selected = " selected";
-                                                                            else
-                                                                                $selected = "";
-                                                                            echo "<option" . $selected . " value='" . $court['id'] . "' type='" . $court['type'] . "'>" . $court['name'] . "</option>";
+                                                                            echo "<option value='" . $court['id'] . "' type='" . $court['type'] . "'>" . $court['name'] . "</option>";
                                                                         }
                                                                         ?>
                                                                     </select>
@@ -466,13 +462,9 @@ if (isset($_POST['submit'])) {
                                                                                 GROUP by id;";
                                                                         $result = mysqli_query($ktx, $query);
                                                                         while ($room = mysqli_fetch_array($result)) {
-                                                                            if ($student['room_number'] == $room['room_number'])
-                                                                                $selected = " selected";
-                                                                            else
-                                                                                $selected = "";
 
                                                                             if ($room['slot_count'] != $room['slot'])
-                                                                                echo "<option" . $selected . " value='" . $room['id'] . "' court='" . $room['court_id'] . "'>" . $room['room_number'] . "</option>";
+                                                                                echo "<option value='" . $room['id'] . "' court='" . $room['court_id'] . "'>" . $room['room_number'] . "</option>";
                                                                         }
                                                                         ?>
                                                                     </select>
