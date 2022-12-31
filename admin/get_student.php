@@ -34,6 +34,8 @@ echo json_encode(
         's_status' => $student['s_status'],
         's_created_at' => $student['s_created_at'],
         's_updated_at' => $student['s_updated_at'],
+        'start_date' => $student['start_date'],
+        'end_date' => $student['end_date'],
         'student_id' => $student['student_id']
     )
 )

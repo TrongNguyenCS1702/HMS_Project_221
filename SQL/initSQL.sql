@@ -31,6 +31,8 @@ CREATE TABLE `students` (
 `university` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
 `student_id` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
 `status` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+`start_date` varchar(100) COLLATE utf8mb4_vietnamese_ci,
+`end_date` varchar(100) COLLATE utf8mb4_vietnamese_ci,
 `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 -- --------------------------------------------------------
@@ -547,7 +549,9 @@ INSERT INTO `students`
     year,
     university,
     student_id,
-    status
+    status,
+    start_date,
+    end_date
 )
 VALUES
 (
@@ -557,7 +561,9 @@ VALUES
     '3',
     "Đại học Bách Khoa",
     "2012000",
-    "Gia hạn"
+    "Gia hạn",
+    "10/10/2022",
+    "10/10/2023"
 ),
 (
     NULL,
@@ -566,7 +572,9 @@ VALUES
     '3',
     "Đại học Bách Khoa",
     "2012001",
-    "Gia hạn"
+    "Gia hạn",
+    "10/10/2022",
+    "10/10/2023"
 ),
 (
     NULL,
@@ -575,7 +583,9 @@ VALUES
     '3',
     "Đại học Khoa học tự nhiên",
     "2012002",
-    "Gia hạn"
+    "Gia hạn",
+    "10/10/2022",
+    "10/10/2023"
 ),
 (
     NULL,
@@ -584,7 +594,9 @@ VALUES
     '3',
     "Đại học Bách Khoa",
     "2012003",
-    "Trả phòng"
+    "Trả phòng",
+    "10/10/2022",
+    "10/10/2023"
 ),
 (
     NULL,
@@ -593,7 +605,9 @@ VALUES
     '4',
     "Đại học Bách Khoa",
     "2012004",
-    "Gia hạn"
+    "Gia hạn",
+    "10/10/2022",
+    "10/10/2023"
 ),
 (
     NULL,
@@ -602,7 +616,9 @@ VALUES
     '4',
     "Đại học Bách Khoa",
     "2012005",
-    "Gia hạn"
+    "Gia hạn",
+    "10/10/2022",
+    "10/10/2023"
 ),
 (
     NULL,
@@ -611,7 +627,9 @@ VALUES
     '1',
     "Đại học Bách Khoa",
     "2012006",
-    "Gia hạn"
+    "Gia hạn",
+    "10/10/2022",
+    "10/10/2023"
 );
 
 INSERT INTO `notifications`

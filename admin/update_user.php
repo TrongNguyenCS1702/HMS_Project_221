@@ -85,6 +85,8 @@ if (isset($_POST['submit'])) {
                                                 year='$_POST[year]',
                                                 university='$_POST[university]',
                                                 student_id='$_POST[student_id]',
+                                                start_date='$_POST[start_date]',
+                                                end_date='$_POST[end_date]',
                                                 status='$_POST[status]' where user_id='$_GET[user]' ";
                     mysqli_query($ktx, $mql);
                 } else {
@@ -98,21 +100,26 @@ if (isset($_POST['submit'])) {
                                     year,
                                     university,
                                     student_id,
-                                    status)
+                                    status,
+                                    start_date,
+                                    end_date)
                             values (NULL,
                                     '$_GET[user]',
                                     '$_POST[room]',
                                     '$_POST[year]',
                                     '$_POST[university]',
                                     '$_POST[student_id]',
-                                    '$_POST[status]')";
+                                    '$_POST[student_id]',
+                                    '$_POST[status]',
+                                    '$_POST[start_date]',
+                                    '$_POST[end_date]')";
                     mysqli_query($ktx, $mql);
                 }
 
                 $mql = "select (slot-count(s.id)) as count
                         from (rooms as r
                         left outer join students as s on s.room_id = r.id)
-                        where room_id=$old_room";
+                        where s.status = 'Gia hạn' and room_id=$old_room";
                 mysqli_query($ktx, $mql);
                 $result = mysqli_query($ktx, $mql);
                 $row = mysqli_fetch_assoc($result);
@@ -124,7 +131,7 @@ if (isset($_POST['submit'])) {
                 $mql = "select (slot-count(s.id)) as count
                             from (rooms as r
                             left outer join students as s on s.room_id = r.id)
-                            where r.id='$_POST[room]' ";
+                            where s.status = 'Gia hạn' and r.id='$_POST[room]' ";
                 mysqli_query($ktx, $mql);
                 $result = mysqli_query($ktx, $mql);
                 $row = mysqli_fetch_assoc($result);
@@ -163,7 +170,7 @@ if (isset($_POST['submit'])) {
                 $mql = "select (slot-count(s.id)) as count
                             from (rooms as r
                             left outer join students as s on s.room_id = r.id)
-                            where room_id='$old_room' ";
+                            where s.status = 'Gia hạn' and room_id='$old_room' ";
                 mysqli_query($ktx, $mql);
                 $result = mysqli_query($ktx, $mql);
                 $row = mysqli_fetch_assoc($result);
@@ -493,6 +500,8 @@ if (isset($_POST['submit'])) {
                                                                     <select
                                                                         style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
                                                                         name="court" aria-label="select example">
+                                                                        <option value="0" type="0">Chọn Tòa</option>
+
                                                                         <?php
                                                                         $query = "select * from courts";
                                                                         $result = mysqli_query($ktx, $query);
@@ -514,6 +523,8 @@ if (isset($_POST['submit'])) {
                                                                     <select
                                                                         style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
                                                                         name="room" aria-label="select example">
+                                                                        <option value="0" court="0">Chọn Phòng</option>
+
                                                                         <?php
                                                                         $query = "select *, count(s_id) as slot_count
                                                                                 from (rooms
@@ -577,6 +588,29 @@ if (isset($_POST['submit'])) {
 
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="row p-t-20">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group has-danger">
+                                                                    <label class="control-label">Start Date</label>
+                                                                    <input type="date" name="start_date"
+                                                                        class="form-control form-control-danger"
+                                                                        value="<?php echo date('Y-m-d', strtotime(str_replace('/', '-', $student['start_date']))); ?>"
+                                                                        placeholder="01/01/2002">
+                                                                </div>
+                                                            </div>
+                                                            <!--/span-->
+                                                            <div class="col-md-6">
+                                                                <div class="form-group has-danger">
+                                                                    <label class="control-label">End Date</label>
+                                                                    <input type="date" name="end_date"
+                                                                        class="form-control form-control-danger"
+                                                                        value="<?php echo date('Y-m-d', strtotime(str_replace('/', '-', $student['end_date']))); ?>"
+                                                                        placeholder="01/01/2002">
+                                                                </div>
+                                                            </div>
+                                                            <!--/span-->
+
                                                         </div>
                                                     </div>
                                                     <hr>

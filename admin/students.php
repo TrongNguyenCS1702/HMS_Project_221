@@ -136,6 +136,8 @@ include("../connect/connect.php");
                                                         <th scope='col'>University</th>
                                                         <th scope='col'>Username</th>
                                                         <th scope='col'>Status</th>
+                                                        <th scope='col'>Start Date</th>
+                                                        <th scope='col'>End Date</th>
                                                         <th scope='col'>Action</th>
                                                     </tr>
                                                 </thead>
@@ -144,7 +146,7 @@ include("../connect/connect.php");
                                                     <?php
                                                     $query = "select * from (((users as u
                                                       inner join
-                                                                (select user_id, year, university, room_id, student_id, status as s_status from students) as s on u.id = s.user_id)
+                                                                (select user_id, year, university, room_id, student_id, status as s_status , start_date, end_date from students) as s on u.id = s.user_id)
                                                       left outer join
                                                                 (select id as r_id, room_number, court_id from rooms) as r on s.room_id = r.r_id)
                                                       left outer join
@@ -163,6 +165,8 @@ include("../connect/connect.php");
                                                         <td>" . $row['university'] . "</td>
                                                         <td>" . $row['username'] . "</td>
                                                         <td>" . $row['s_status'] . "</td>
+                                                        <td>" . $row['start_date'] . "</td>
+                                                        <td>" . $row['end_date'] . "</td>
                                                         <td>
                                                             <input value='$row[id]' style='display:none;'>
                                                             <button class='detail-btn btn btn-primary' data-bs-toggle='modal'
