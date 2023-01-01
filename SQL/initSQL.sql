@@ -65,7 +65,7 @@ CREATE TABLE `bills` (
 --
 
 INSERT INTO `bills` (`id`, `manager_id`, `room_id`, `student_id`, `title`, `time`, `bill`, `note`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 6, NULL, 'Tiền điện nước T.12', 'sfsdf', 235000, '', 'Chưa thanh toán', '2022-12-31 21:16:10', '2022-12-31 22:09:37');
+(1, 1, 6, NULL, 'Tiền điện nước', '12/2022', 235000, '', 'Chưa thanh toán', '2022-12-31 21:16:10', '2022-12-31 22:09:37');
 
 -- --------------------------------------------------------
 
