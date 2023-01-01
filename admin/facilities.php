@@ -125,8 +125,9 @@ include("../connect/connect.php");
 
                                             <tbody>
                                                 <?php
-                                                $query = "select * from (((facilities as f
-                                                            inner join (select id as u_id, firstname, lastname from users) as u on f.student_id = u.u_id)
+                                                $query = "select * from ((((facilities as f
+                                                            inner join (select id as s_id, user_id as s_user_id from students) as s on s.s_id = f.student_id)
+                                                            inner join (select id as u_id, firstname, lastname from users) as u on s.s_user_id = u.u_id)
                                                             inner join (select id as r_id, room_number, court_id from rooms) as r on r.r_id = f.room_id)
                                                             inner join (select id as c_id, name from courts) as c on r.court_id = c.c_id)
                                                             ";
