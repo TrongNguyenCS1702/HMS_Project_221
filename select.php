@@ -8,5 +8,5 @@ if (isset($_POST["employee_id"])) {
 
 if (isset($_POST["bill_id"])) {
     include_once 'dbconn.php';
-    $result = mysqli_query($conn, "update bills set status = 'Đã thanh toán' where id = {$_POST["bill_id"]}");
+    $result = mysqli_query($conn, "update bills set status = 'Đã thanh toán', student_id=$_POST[student_id] where id = {$_POST["bill_id"]}");
 }
