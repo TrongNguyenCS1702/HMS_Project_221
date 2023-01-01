@@ -130,7 +130,7 @@ include("../connect/connect.php");
                             $row = mysqli_fetch_assoc($result);
                             ?>
                             <div class="col-xl-3">
-                                <a href="./registers.php">
+                                <a href="./students.php">
                                     <div class="card p-32 m-8">
                                         <div class="card-content">
                                             <i class="card-icon ti-plus"></i>

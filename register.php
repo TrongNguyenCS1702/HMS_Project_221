@@ -199,7 +199,7 @@ if (isset($_POST['submit'])) {
                                                         <!--/span-->
                                                         <div class="col-md-6">
                                                             <div class="form-group has-danger">
-                                                                <label class="control-label">CCCD</label>
+                                                                <label class="form-label">CCCD</label>
                                                                 <input type="text" name="ssn"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="123456789012">
@@ -209,7 +209,7 @@ if (isset($_POST['submit'])) {
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label">Quốc tịch</label>
+                                                                <label class="form-label">Quốc tịch</label>
                                                                 <input type="text" name="country"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="Việt Nam">
@@ -222,7 +222,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="row p-t-20">
                                                         <div class="col-md-6">
                                                             <div class="form-group has-danger">
-                                                                <label class="control-label">Họ và tên lót</label>
+                                                                <label class="form-label">Họ và tên lót</label>
                                                                 <input type="text" name="lastname"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="Nguyễn Văn">
@@ -231,7 +231,7 @@ if (isset($_POST['submit'])) {
                                                         <!--/span-->
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label">Tên</label>
+                                                                <label class="form-label">Tên</label>
                                                                 <input type="text" name="firstname" class="form-control"
                                                                     placeholder="A" value="">
                                                             </div>
@@ -243,7 +243,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="row p-t-20">
                                                         <div class="col-md-6">
                                                             <div class="form-group has-danger">
-                                                                <label class="control-label">Giới tính</label><br>
+                                                                <label class="form-label">Giới tính</label><br>
                                                                 <select
                                                                     style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
                                                                     name="gender" aria-label="select example">
@@ -255,7 +255,7 @@ if (isset($_POST['submit'])) {
                                                         <!--/span-->
                                                         <div class="col-md-6">
                                                             <div class="form-group has-danger">
-                                                                <label class="control-label">Ngày sinh</label>
+                                                                <label class="form-label">Ngày sinh</label>
                                                                 <input type="date" name="birthday"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="01/01/2002">
@@ -268,7 +268,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label">Địa chỉ</label>
+                                                                <label class="form-label">Địa chỉ</label>
                                                                 <input type="text" name="address"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="Dĩ An, Bình Dương">
@@ -276,7 +276,7 @@ if (isset($_POST['submit'])) {
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label">Số điện thoại</label>
+                                                                <label class="form-label">Số điện thoại</label>
                                                                 <input type="text" name="phone"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="0123456789">
@@ -288,7 +288,7 @@ if (isset($_POST['submit'])) {
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Sinh viên năm</label>
+                                                                    <label class="form-label">Sinh viên năm</label>
                                                                     <input type="text" name="year"
                                                                         class="form-control form-control-danger"
                                                                         value="" placeholder="1">
@@ -297,7 +297,7 @@ if (isset($_POST['submit'])) {
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Trường</label>
+                                                                    <label class="form-label">Trường</label>
                                                                     <input type="text" name="university"
                                                                         class="form-control form-control-danger"
                                                                         value="" placeholder="Đại học Bách Khoa">
@@ -306,7 +306,7 @@ if (isset($_POST['submit'])) {
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Mã số sinh viên</label>
+                                                                    <label class="form-label">Mã số sinh viên</label>
                                                                     <input type="text" name="student_id"
                                                                         class="form-control form-control-danger"
                                                                         value="" placeholder="Mã số sinh viên">
@@ -315,7 +315,7 @@ if (isset($_POST['submit'])) {
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group has-danger">
-                                                                    <label class="control-label">Email</label>
+                                                                    <label class="form-label">Email</label>
                                                                     <input type="text" name="email"
                                                                         class="form-control form-control-danger"
                                                                         value="" placeholder="example@gmail.com">
@@ -326,7 +326,7 @@ if (isset($_POST['submit'])) {
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Tòa</label><br>
+                                                                    <label class="form-label">Tòa</label><br>
                                                                     <select
                                                                         style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
                                                                         name="court" aria-label="select example">
@@ -344,7 +344,7 @@ if (isset($_POST['submit'])) {
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Phòng</label><br>
+                                                                    <label class="form-label">Phòng</label><br>
                                                                     <select
                                                                         style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80)"
                                                                         name="room" aria-label="select example">
@@ -369,7 +369,7 @@ if (isset($_POST['submit'])) {
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="control-label">Đăng ký</label><br>
+                                                                    <label class="form-label">Đăng ký</label><br>
                                                                     <input type="radio" name="date" value="1"
                                                                         placeholder="Cả năm">
                                                                     <span style="font-size: 1.5rem; margin-left:4px"> Cả
@@ -390,7 +390,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label">Nhập mật khẩu</label>
+                                                                <label class="form-label">Nhập mật khẩu</label>
                                                                 <input type="password" name="password"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="Nhập Mật khẩu">
@@ -398,7 +398,7 @@ if (isset($_POST['submit'])) {
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label class="control-label">Nhập lại mật khẩu</label>
+                                                                <label class="form-label">Nhập lại mật khẩu</label>
                                                                 <input type="password" name="cpassword"
                                                                     class="form-control form-control-danger" value=""
                                                                     placeholder="Nhập lại mật khẩu">
