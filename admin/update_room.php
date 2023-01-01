@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
                                             left outer join courts as c on r.court_id = c.id)
                                             where r.room_number = '$_POST[room]' and r.court_id=$_POST[court];");
 
-        if (mysqli_num_rows($check_room) > 0) {
+        if (mysqli_num_rows($check_room) > 0 && $_POST['room'] != mysqli_fetch_assoc($check_room)['room_number']) {
             $error = '<div class="alert alert-danger alert-dismissible fade show">
                                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                                 <strong>Phòng đã tồn tại!</strong>
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
         } else {
             $mql = "update rooms set slot = $_POST[slot],
                                      fee = $_POST[fee],
-                                     room_number = $_POST[room],
+                                     room_number = '$_POST[room]',
                                      type = 'Phòng $_POST[slot]'
                     where id = $_GET[id]";
             mysqli_query($ktx, $mql);
@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
             $row = mysqli_fetch_assoc($result);
             $count = $row['count'];
 
-            $mql = "update rooms set status='Còn $count giường' where id='$_GET[id]' ";
+            $mql = "update rooms set status='Còn $count giường' where id=$_GET[id] ";
             mysqli_query($ktx, $mql);
 
             $success = '<div class="alert alert-success alert-dismissible fade show">
@@ -202,7 +202,7 @@ if (isset($_POST['submit'])) {
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label class="control-label">Court</label><br>
-                                                                <select disabled
+                                                                <select readonly
                                                                     style="font-size:medium; padding: 8px; border:1px solid rgb(232,232,232); color:rgb(80,80,80);background-color:#ddd;"
                                                                     name="court" aria-label="select example">
                                                                     <?php
