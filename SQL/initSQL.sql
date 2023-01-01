@@ -113,7 +113,7 @@ CREATE TABLE `facilities` (
 --
 
 INSERT INTO `facilities` (`id`, `room_id`, `student_id`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 3, 'Quạt trần bị hỏng', 'Đang chờ', '2022-12-31 05:17:29', '2022-12-31 05:17:29'),
+(1, 5, 3, 'Quạt trần bị hỏng', 'Đã tiếp nhận', '2022-12-31 05:17:29', '2022-12-31 05:17:29'),
 (4, 1, 2, 'sfsfsf', 'Đã tiếp nhận', '2022-12-31 14:14:35', '2022-12-31 14:14:35'),
 (13, 6, 7, 'Cửa chính bị kẹt', 'Đã tiếp nhận', '2022-12-31 16:23:02', '2022-12-31 16:23:02'),
 (25, 6, 7, 'Mất nước phòng tắm', 'Đã tiếp nhận', '2022-12-31 18:01:33', '2022-12-31 18:01:33');
