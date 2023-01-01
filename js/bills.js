@@ -5,6 +5,7 @@ $(".edit-btn").click(function(){
         url: "../admin/get_bill.php?id=" + id,
         dataType: "json",
         success: function(resBill){
+            $("input[name='bill_id']").val(id);
             $("input[name='title']").val(resBill.title);
             $("input[name='time']").val(resBill.time);
             $("input[name='bill']").val(resBill.bill);
